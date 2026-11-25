@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up — Teyvat Bonds</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/api.js"></script>
+</head>
+<body>
+  <main class="shell narrow">
+    <p class="eyebrow">Teyvat Bonds</p>
+    <h1>Begin your journey</h1>
+    <p class="muted">Create an account, then adopt a companion.</p>
+
+    <form id="register-form">
+      <label for="username">Username</label>
+      <input id="username" name="username" autocomplete="username" minlength="3" required>
+
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="new-password" minlength="6" required>
+      <p class="muted" style="margin-top: -0.7rem; margin-bottom: 1rem;">At least 6 characters.</p>
+
+      <button class="primary" type="submit" id="submit-btn">Create Account</button>
+    </form>
+
+    <p class="muted mt">Already have an account? <a href="login.html">Log in</a></p>
+  </main>
+
+  <script>
+    if (auth.isLoggedIn()) window.location.href = 'game.html';
+
+    const form = document.getElementById('register-form');
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Creating account...';
+
+      const username = form.username.value.trim();
+      const password = form.password.value;
+
+      try {
+        await api('/auth/register', { method: 'POST', auth: false, body: { username, password } });
+
+        // Registration succeeded — log in immediately so the player lands
+        // straight in the game instead of retyping their credentials.
+        const { token, user } = await api('/auth/login', { method: 'POST', auth: false, body: { username, password } });
+        auth.setSession(token, user);
+        window.location.href = 'game.html';
+      } catch (err) {
+        showFeedback(null, err.message);
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Create Account';
+      }
+    });
+  </script>
+</body>
+</html>

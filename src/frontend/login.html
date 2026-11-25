@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In — Teyvat Bonds</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/api.js"></script>
+</head>
+<body>
+  <main class="shell narrow">
+    <p class="eyebrow">Teyvat Bonds</p>
+    <h1>Welcome back, Traveler</h1>
+    <p class="muted">Log in to check on your companion.</p>
+
+    <form id="login-form">
+      <label for="username">Username</label>
+      <input id="username" name="username" autocomplete="username" required>
+
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required>
+
+      <button class="primary" type="submit" id="submit-btn">Log In</button>
+    </form>
+
+    <p class="muted mt">New to Teyvat? <a href="register.html">Create an account</a></p>
+  </main>
+
+  <script>
+    if (auth.isLoggedIn()) window.location.href = 'game.html';
+
+    // Landed here because a previous session pointed at an account that no
+    // longer exists (e.g. the database was reseeded) — let the player know
+    // this wasn't a wrong-password error.
+    if (new URLSearchParams(window.location.search).get('expired') === '1') {
+      showFeedback(null, 'Your previous session is no longer valid — please log in again.', 'error');
+    }
+
+    const form = document.getElementById('login-form');
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Logging in...';
+
+      try {
+        const { token, user } = await api('/auth/login', {
+          method: 'POST',
+          auth: false,
+          body: {
+            username: form.username.value.trim(),
+            password: form.password.value,
+          },
+        });
+        auth.setSession(token, user);
+        window.location.href = 'game.html';
+      } catch (err) {
+        showFeedback(null, err.message);
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Log In';
+      }
+    });
+  </script>
+</body>
+</html>

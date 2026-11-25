@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teyvat Bonds</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/api.js"></script>
+  <script src="js/sprites.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <div class="topbar">
+      <div>
+        <p class="eyebrow">Teyvat Bonds</p>
+        <h1 id="greeting">Welcome</h1>
+      </div>
+      <div class="center">
+        <p class="muted" style="margin: 0 0 0.4rem;"><span id="coins">0</span> coins</p>
+        <button id="logout-btn">Log Out</button>
+      </div>
+    </div>
+
+    <nav class="tabs" id="tabs">
+      <button data-tab="companion" class="active">Companion</button>
+      <button data-tab="quests">Quests</button>
+      <button data-tab="shop">Shop</button>
+      <button data-tab="inventory">Inventory</button>
+      <button data-tab="arena">Duel Arena</button>
+      <button data-tab="leaderboard">Leaderboard</button>
+    </nav>
+
+    <section id="view-companion" class="view"></section>
+    <section id="view-quests" class="view" hidden></section>
+    <section id="view-shop" class="view" hidden></section>
+    <section id="view-inventory" class="view" hidden></section>
+    <section id="view-arena" class="view" hidden></section>
+    <section id="view-leaderboard" class="view" hidden></section>
+  </main>
+
+  <!-- Full-screen scene overlay for animated quest completion -->
+  <div id="scene-overlay" class="scene-overlay" hidden></div>
+
+  <script src="js/quest-scenes.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

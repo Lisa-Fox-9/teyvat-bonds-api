@@ -1,0 +1,538 @@
+/* Teyvat Bonds — shared styles.
+   Palette: deep night sky + warm gold (the "Ley Line" glow), with each
+   element getting its own accent so companions, items and duels read
+   at a glance without extra labels. */
+
+:root {
+  --ink: #14182b;
+  --ink-panel: #1c2140;
+  --ink-panel-raised: #262c52;
+  --parchment: #f2ead9;
+  --gold: #e8c468;
+  --gold-dim: #b89a52;
+  --danger: #e2694b;
+  --success: #7fbf8f;
+  --border: #3a3f66;
+
+  --anemo: #6bd3b0;
+  --geo: #d9a441;
+  --hydro: #4f9fe0;
+  --pyro: #e2694b;
+  --cryo: #8fd6e8;
+  --electro: #b17fe0;
+  --dendro: #8fc24a;
+
+  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at top, #232a52 0%, #14182b 55%),
+    var(--ink);
+  color: var(--parchment);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin: 0 0 0.4em;
+}
+
+h1 { font-size: 2.4rem; color: var(--gold); }
+h2 { font-size: 1.5rem; color: var(--parchment); }
+h3 { font-size: 1.15rem; color: var(--gold); }
+
+a { color: var(--gold); }
+
+.shell {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.shell.narrow { max-width: 440px; padding-top: 5rem; }
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  color: var(--gold-dim);
+  margin: 0 0 0.5rem;
+}
+
+/* --- Panels & cards --- */
+
+.panel {
+  background: var(--ink-panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.card {
+  background: var(--ink-panel-raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+/* --- Forms --- */
+
+label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--gold-dim);
+  margin-bottom: 0.3rem;
+}
+
+input, select {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--ink);
+  color: var(--parchment);
+  font-family: inherit;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+input:focus, select:focus, button:focus, a.button:focus {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+button, a.button {
+  display: inline-block;
+  cursor: pointer;
+  border: 1px solid var(--gold-dim);
+  background: transparent;
+  color: var(--gold);
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+button:hover, a.button:hover { background: var(--gold); color: var(--ink); }
+
+button.primary { background: var(--gold); color: var(--ink); }
+button.primary:hover { background: var(--parchment); }
+
+button.danger { border-color: var(--danger); color: var(--danger); }
+button.danger:hover { background: var(--danger); color: var(--parchment); }
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  background: transparent;
+  color: var(--gold-dim);
+}
+
+/* --- Feedback banners --- */
+
+.feedback {
+  padding: 0.65rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.feedback.error { background: rgba(226, 105, 75, 0.15); border: 1px solid var(--danger); color: #f4b8a8; }
+.feedback.success { background: rgba(127, 191, 143, 0.15); border: 1px solid var(--success); color: #bfe6c8; }
+
+/* --- Nav --- */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.tabs button {
+  border-color: var(--border);
+  color: var(--parchment);
+}
+
+.tabs button.active { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+
+/* --- Element tags --- */
+
+.tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.tag.anemo { background: rgba(107,211,176,0.18); color: var(--anemo); }
+.tag.geo { background: rgba(217,164,65,0.18); color: var(--geo); }
+.tag.hydro { background: rgba(79,159,224,0.18); color: var(--hydro); }
+.tag.pyro { background: rgba(226,105,75,0.18); color: var(--pyro); }
+.tag.cryo { background: rgba(143,214,232,0.18); color: var(--cryo); }
+.tag.electro { background: rgba(177,127,224,0.18); color: var(--electro); }
+.tag.dendro { background: rgba(143,194,74,0.18); color: var(--dendro); }
+
+/* --- Happiness bar --- */
+
+.bar-track {
+  background: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  height: 10px;
+  overflow: hidden;
+  margin: 0.4rem 0 0.8rem;
+}
+
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+  transition: width 0.3s ease;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--gold-dim);
+}
+
+/* --- Misc --- */
+
+.muted { color: var(--gold-dim); font-size: 0.88rem; }
+.center { text-align: center; }
+.mt { margin-top: 1.5rem; }
+
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--border); font-size: 0.92rem; }
+th { color: var(--gold-dim); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+.empty-state {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--gold-dim);
+}
+
+/* --- Toast popups (replaces inline banner) --- */
+
+#toast-container {
+  position: fixed;
+  top: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: min(420px, calc(100vw - 2rem));
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  opacity: 0;
+  transform: translateY(-16px);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.toast.show { opacity: 1; transform: translateY(0); }
+
+.toast-error { background: #3a2020; border: 1px solid var(--danger); color: #f4b8a8; }
+.toast-success { background: #1f3324; border: 1px solid var(--success); color: #bfe6c8; }
+
+.toast-close {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0 0.2rem;
+  cursor: pointer;
+}
+.toast-close:hover { background: none; color: inherit; opacity: 0.7; }
+
+/* --- Sprite images with graceful fallback --- */
+
+.sprite {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--ink-panel-raised);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.sprite img { width: 100%; height: 100%; object-fit: contain; }
+
+.sprite-fallback {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--gold);
+}
+
+@media (max-width: 560px) {
+  h1 { font-size: 1.9rem; }
+  .shell { padding: 1.5rem 1rem 3rem; }
+}
+
+/* --- Companion hero layout (big sprite, info beside it) --- */
+
+.companion-hero {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+.companion-hero-sprite { flex-shrink: 0; }
+.companion-hero-info { flex: 1; min-width: 0; }
+
+@media (max-width: 680px) {
+  .companion-hero { flex-direction: column; align-items: center; text-align: center; }
+  .companion-hero .topbar { flex-direction: column; align-items: center; }
+}
+
+/* --- Quest scene overlay (full-screen takeover) --- */
+
+.scene-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  background: radial-gradient(ellipse at center, #232a52 0%, #0d1024 75%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  overflow: hidden;
+}
+
+/* The [hidden] attribute alone isn't enough here — .scene-overlay's own
+   `display: flex` above has equal CSS specificity to the browser's built-in
+   `[hidden] { display: none }` rule, and author styles win that tie, so
+   without this the overlay would stay visible (as an empty full-screen
+   panel) even while "hidden". This rule forces it to actually disappear. */
+.scene-overlay[hidden] {
+  display: none;
+}
+
+.scene-overlay.map-bg {
+  background:
+    linear-gradient(rgba(10,12,25,0.6), rgba(10,12,25,0.75)),
+    url('../assets/map/background.png') center/cover no-repeat,
+    radial-gradient(ellipse at center, #2a3d2c 0%, #0d1024 75%);
+}
+.scene-overlay.battle-bg {
+  background:
+    linear-gradient(rgba(10,12,25,0.6), rgba(10,12,25,0.75)),
+    url('../assets/battle/background.png') center/cover no-repeat,
+    radial-gradient(ellipse at center, #3d2424 0%, #0d1024 75%);
+}
+
+.scene-stage {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 420px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.scene-title {
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.scene-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.8rem;
+}
+
+.scene-actions button {
+  font-size: 1.15rem;
+  padding: 0.85rem 1.8rem;
+}
+
+.scene-skip {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+/* NPC scene */
+.scene-speech {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--parchment);
+  color: var(--ink);
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  margin-bottom: 0.8rem;
+  opacity: 0;
+  animation: speechIn 0.4s ease 0.3s forwards;
+}
+.scene-speech::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-top-color: var(--parchment);
+}
+@keyframes speechIn { to { opacity: 1; } }
+
+.npc-idle { animation: idleBob 1.6s ease-in-out infinite; }
+@keyframes idleBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+/* Explore scene — interactive map */
+.explore-map {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 420px;
+  border: 2px solid var(--gold-dim);
+  border-radius: 12px;
+  background: rgba(20, 24, 43, 0.5);
+  margin: 1rem 0;
+  overflow: hidden;
+  outline: none;
+}
+.explore-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 96px;
+  height: 96px;
+  will-change: transform;
+}
+.explore-berry {
+  position: absolute;
+  font-size: 2.4rem;
+  animation: berryBob 1.4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes berryBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+.explore-hud {
+  display: flex;
+  gap: 2rem;
+  color: var(--gold);
+  font-size: 1.25rem;
+}
+
+/* Battle scene */
+.battle-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+  width: 100%;
+}
+.battle-vs {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  color: var(--gold-dim);
+}
+.attacker.lunge { animation: attackLunge 0.3s ease-in-out; }
+@keyframes attackLunge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(40px); }
+}
+.defender.lunge { animation: defenderLunge 0.3s ease-in-out; }
+@keyframes defenderLunge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-40px); }
+}
+.defender.hit, .attacker.hit { animation: hitShake 0.35s ease; }
+@keyframes hitShake {
+  0%, 100% { transform: translateX(0); filter: brightness(1); }
+  25% { transform: translateX(-10px); filter: brightness(2) saturate(0.3); }
+  75% { transform: translateX(10px); filter: brightness(2) saturate(0.3); }
+}
+.hp-track {
+  width: 220px;
+  height: 14px;
+  background: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 0.8rem;
+}
+.hp-fill { height: 100%; background: var(--danger); transition: width 0.3s ease; }
+
+/* Reward popup */
+.reward-card {
+  background: var(--ink-panel);
+  border: 2px solid var(--gold);
+  border-radius: 14px;
+  padding: 2rem 2.5rem;
+  text-align: center;
+  animation: rewardPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes rewardPop { 0% { transform: scale(0.7); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+.reward-icons { display: flex; gap: 1rem; justify-content: center; margin: 1.2rem 0; }
+.reward-chip {
+  background: var(--ink-panel-raised);
+  border: 1px solid var(--gold-dim);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  color: var(--gold);
+}
+.reward-card-rare { border-color: #d891f5; box-shadow: 0 0 40px rgba(216,145,245,0.4); }
+.rare-badge {
+  color: #d891f5;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.5rem;
+  animation: rareGlow 1.4s ease-in-out infinite;
+}
+@keyframes rareGlow { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+.reward-chip-rare { background: rgba(216,145,245,0.15); border-color: #d891f5; color: #d891f5; }
